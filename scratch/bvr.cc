@@ -158,6 +158,14 @@ int main(int argc, char* argv[])
 		}
 	}
 
+	/* Populate routing table */
+
+  Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
+  Ipv4GlobalRoutingHelper g;
+  Ptr<OutputStreamWrapper> routingStream = Create<OutputStreamWrapper>
+  ("dynamic-global-routing.routes", std::ios::out);
+  g.PrintRoutingTableAllAt (Seconds (5), routingStream);
+
 	AnimationInterface* animator;
 	if(enableAnimation) {
 		animator = new AnimationInterface ("fog.xml");
