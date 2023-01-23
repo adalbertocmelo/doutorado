@@ -52,13 +52,26 @@ template<typename T>
 class matriz {
 public:
     matriz() = default;
+    matriz(unsigned long rows, initializer_list<T> init);
     Row<T> operator[](unsigned long index);
     void setDimensions(unsigned long rows, unsigned long columns);
+	unsigned long getRows();
 private:
     vector<T> elements;
     Row<T> row {&elements};
     unsigned long rows, columns;
 };
+
+template<typename T>
+matriz<T>::matriz(unsigned long rows, initializer_list<T> init)
+	:rows{rows}
+{
+	unsigned long size = init.size();
+	this->columns = size / rows;
+    row.setColumns(columns);
+	elements.reserve(size);
+	uninitialized_copy(init.begin(),init.end(), elements.begin());
+}
 
 template<typename T>
 Row<T> matriz<T>::operator[](unsigned long index) {
@@ -76,4 +89,9 @@ void matriz<T>::setDimensions(unsigned long rows, unsigned long columns) {
     this->columns = columns;
     row.setColumns(columns);
     elements.resize(rows*columns);
+}
+
+template<typename T>
+unsigned long matriz<T>::getRows(){
+	return this->rows;
 }
