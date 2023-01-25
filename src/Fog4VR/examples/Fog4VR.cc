@@ -22,6 +22,7 @@
 #include "ns3/tcp-stream-helper.h"
 #include "ns3/tcp-stream-interface.h"
 #include "ns3/tcp-stream-controller.h"
+#include "ns3/fog4vr-utils.h"
 #include <iostream>
 #include <stdlib.h>
 #include <sstream>
@@ -85,7 +86,7 @@ std::ofstream RebufferLog;
 std::ofstream StartTimeLog;
 std::ofstream ServerScoreLog;
 std::ofstream ClientsLog;
-
+std::string ns3_dir;
 
 double averageArrival = 0.4;
 double lamda = 1 / averageArrival;
@@ -468,7 +469,7 @@ getStall(ApplicationContainer clientApps, TcpStreamClientHelper clientHelper, st
   double Tsv2=0;
   double Tsv3=0;
   double Tcloud=0;
-  std::string filename = "python3 src/Fog4VR/StallRebuffer.py " + dirTmp +" "+ToString(simulationId);
+  std::string filename = "python3 " + ns3_dir + "src/Fog4VR/StallRebuffer.py " + dirTmp +" "+ToString(simulationId);
   std::string Values = execute(filename.c_str());
   NS_LOG_UNCOND(Values);
   //system(filename.c_str());
@@ -796,7 +797,7 @@ PingRtt (std::string context, Time rtt)
 void
 saveDelays(int32_t numberOfServers)
 {
-  std::string filename = "python3 src/Fog4VR/Delays.py " + dirTmp +" "+ToString(simulationId);
+  std::string filename = "python3 " + ns3_dir + "src/Fog4VR/Delays.py " + dirTmp +" "+ToString(simulationId);
   for (int i = 0; i < numberOfServers; ++i)
   {
     for (int j = 0; j < numberOfServers; ++j)
@@ -838,6 +839,8 @@ main (int argc, char *argv[])
   RngSeedManager::SetSeed(seedValue + 10000);
   srand(seedValue);
   rng.seed(seedValue);
+  ns3_dir = GetTopLevelSourceDir();
+  segmentSizeFilePath = ns3_dir + segmentSizeFilePath;
 
   Config::SetDefault("ns3::TcpSocket::SegmentSize", UintegerValue (1446));
   Config::SetDefault("ns3::TcpSocket::SndBufSize", UintegerValue (524288));

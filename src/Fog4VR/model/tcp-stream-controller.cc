@@ -21,6 +21,7 @@
 #include <sstream>
 #include <iterator>
 #include "tcp-stream-controller.h"
+#include "fog4vr-utils.h"
 
 template <typename T>
 std::string ToString (T val)
@@ -170,12 +171,13 @@ printInformation (uint16_t serverId)
 std::pair <uint32_t, double>
 sendRequest (uint16_t content,double size,uint16_t clientId,uint16_t serverId,uint16_t pol)
 {
+  std::string ns3_dir = GetTopLevelSourceDir();
   saveToLogFiles ();
   std::pair <uint32_t, double> resp;
   //AHP
   if(pol==4 or pol==7)
   {
-    std::string filename = "python3 src/Fog4VR/AHP/AHP.py " + directory +" "+ToString(simulationId) +" "+ToString(size)+" "+ToString(serverId)+" "+ToString(content);
+    std::string filename = "python3 " + ns3_dir + "src/Fog4VR/AHP/AHP.py " + directory +" "+ToString(simulationId) +" "+ToString(size)+" "+ToString(serverId)+" "+ToString(content);
     std::string ahp = execute(filename.c_str());
     std::vector <std::string> Ahp;
     //system(filename.c_str());
@@ -186,7 +188,7 @@ sendRequest (uint16_t content,double size,uint16_t clientId,uint16_t serverId,ui
   }
   if (pol==5)
   {
-    std::string filename = "python3 src/Fog4VR/Guloso-Aleatorio/exemplo.py " + directory +" "+ToString(simulationId) +" "+ToString(size)+" "+ToString(serverId)+" "+ToString(content)+" "+"guloso";
+    std::string filename = "python3 " + ns3_dir + "src/Fog4VR/Guloso-Aleatorio/exemplo.py " + directory +" "+ToString(simulationId) +" "+ToString(size)+" "+ToString(serverId)+" "+ToString(content)+" "+"guloso";
     std::string ahp = execute(filename.c_str());
     std::vector <std::string> Ahp;
     //system(filename.c_str());
@@ -197,7 +199,7 @@ sendRequest (uint16_t content,double size,uint16_t clientId,uint16_t serverId,ui
   }
   if (pol==6)
   {
-    std::string filename = "python3 src/Fog4VR/Guloso-Aleatorio/exemplo.py " + directory +" "+ToString(simulationId) +" "+ToString(size)+" "+ToString(serverId)+" "+ToString(content)+" "+"ale";
+    std::string filename = "python3 " + ns3_dir + "src/Fog4VR/Guloso-Aleatorio/exemplo.py " + directory +" "+ToString(simulationId) +" "+ToString(size)+" "+ToString(serverId)+" "+ToString(content)+" "+"ale";
     std::string ahp = execute(filename.c_str());
     std::vector <std::string> Ahp;
     //system(filename.c_str());
@@ -212,7 +214,7 @@ sendRequest (uint16_t content,double size,uint16_t clientId,uint16_t serverId,ui
   }
   if (pol==8)
   {
-    std::string filename = "python3 src/Fog4VR/PLI/pliLocal.py " + directory +" "+ToString(simulationId) +" "+ToString(size)+" "+ToString(serverId)+" "+ToString(content)+" "+ToString(clientId);
+    std::string filename = "python3 " + ns3_dir + "src/Fog4VR/PLI/pliLocal.py " + directory +" "+ToString(simulationId) +" "+ToString(size)+" "+ToString(serverId)+" "+ToString(content)+" "+ToString(clientId);
     std::string ahp = execute(filename.c_str());
     std::vector <std::string> Ahp;
     //system(filename.c_str());
