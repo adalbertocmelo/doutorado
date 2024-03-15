@@ -1,3 +1,6 @@
+#ifndef MATRIZ_H
+#define MATRIZ_H
+
 #include <vector>
 #include <stdexcept>
 #include <string>
@@ -95,3 +98,5 @@ template<typename T>
 unsigned long matriz<T>::getRows(){
 	return this->rows;
 }
+
+#endif

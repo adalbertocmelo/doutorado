@@ -7,8 +7,10 @@ build_lib(
         model/tcp-stream-client.cc
         model/tcp-stream-server.cc
         model/tcp-stream-controller.cc
+        model/tcp-multi-stream-client.cc
         model/fog4vr-utils.cc
         helper/tcp-stream-helper.cc
+        helper/tcp-multi-stream-helper.cc
   HEADER_FILES  model/festive.h
         model/panda.h
         model/tobasco2.h
@@ -17,8 +19,10 @@ build_lib(
         model/tcp-stream-server.h
         model/tcp-stream-interface.h
         model/tcp-stream-controller.h
+        model/tcp-multi-stream-client.h
         model/fog4vr-utils.h
         helper/tcp-stream-helper.h
+        helper/tcp-multi-stream-helper.h
   LIBRARIES_TO_LINK
       ${libcore}
       ${libinternet}

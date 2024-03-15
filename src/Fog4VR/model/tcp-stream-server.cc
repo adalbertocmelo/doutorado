@@ -169,7 +169,7 @@ TcpStreamServer::StopApplication ()
 void
 TcpStreamServer::HandleRead (Ptr<Socket> socket)
 {
-  NS_LOG_FUNCTION (this << socket);
+  NS_LOG_FUNCTION (this << socket << GetNode()->GetId());
   Ptr<Packet> packet;
   //std::cout << Simulator::Now ().GetSeconds () << "s: \t" << " read" << std::endl;
   Address from;
@@ -219,7 +219,8 @@ TcpStreamServer::HandleSend (Ptr<Socket> socket, uint32_t txSpace)
 void
 TcpStreamServer::HandleAccept (Ptr<Socket> s, const Address& from)
 {
-  NS_LOG_FUNCTION (this << s << from);
+  NS_LOG_FUNCTION (this << s << from << GetNode()->GetId());
+  NS_LOG_DEBUG(InetSocketAddress::ConvertFrom(from).GetIpv4());
   callbackData cbd;
   cbd.currentTxBytes = 0;
   cbd.packetSizeToReturn = 0;
